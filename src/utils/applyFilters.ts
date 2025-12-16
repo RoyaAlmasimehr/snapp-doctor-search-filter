@@ -1,7 +1,9 @@
-import {  filterItems } from "./filterItems";
+
+
 import { searchItems } from "./searchItems";
 import type { Filters } from "../types/Filters";
 import type { Item } from "../types/item";
+import { filterItems } from "./filterItems";
 
 export function applyFilters(
   items: Item[],

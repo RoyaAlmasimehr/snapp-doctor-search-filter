@@ -1,8 +1,12 @@
 import type { Item } from "../types/item";
-export function searchItems(items: Item[], query: string):Item[] {
-  if (!query.trim()) return items;
 
-  const lower = query.toLowerCase();
+function normalize(text: string) {
+  return text.toLowerCase().replace(/\s+/g, "");
+}
 
-  return items.filter((item) => item.name.toLowerCase().includes(lower));
+export function searchItems(items: Item[], query: string): Item[] {
+  const q = normalize(query);
+  if (!q) return items;
+
+  return items.filter((item) => normalize(item.name).includes(q));
 }
