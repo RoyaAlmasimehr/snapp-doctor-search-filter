@@ -8,10 +8,11 @@ interface Props {
 export const CategoryFilter=({ value, onChange }: Props) =>{
   return (
     <>
-    <label>Category</label>
+      <label>Category</label>
       <select
         value={value ?? ""}
         onChange={(e) => onChange(e.target.value || undefined)}
+        style={{ width: 180 }}
       >
         <option value="">All</option>
         {categories.map((c) => (

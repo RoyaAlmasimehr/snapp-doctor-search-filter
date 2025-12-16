@@ -28,15 +28,17 @@ body {
 }
 
 
-.content {
-  display: grid;
-  grid-template-columns: 460px 1fr;
-  gap: 16px;
-}
 
+
+.content {
+  display: flex;
+
+   gap: 16px;
+}
 
 .filters {
   border: 1px solid #ddd;
+  width: 230px;  
   padding: 12px;
   display: flex;
   flex-direction: column;
@@ -47,7 +49,8 @@ body {
 .results {
   border: 1px solid #ddd;
   padding: 12px;
-  height: 600px;
+  height: 800px;
+  flex: 1;            
   display: flex;
   flex-direction: column;
 }
@@ -60,7 +63,7 @@ body {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 12px;
-  margin: 8px;
+  margin: 4px;
   height: calc(100% - 16px);
   box-sizing: border-box;
   display: flex;
@@ -73,15 +76,18 @@ body {
   display: flex;
   justify-content: space-between;
   font-weight: 500;
+  
 }
 
 .name {
   font-size: 14px;
+   color: #132570ff;
+
 }
 
 .category {
   font-size: 12px;
-  color: #666;
+  color: #2a80beff;
 }
 
 .card-footer {
