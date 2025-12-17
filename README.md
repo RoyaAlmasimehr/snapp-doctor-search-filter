@@ -1,73 +1,83 @@
-# React + TypeScript + Vite
+# Snapp Doctor – Frontend Technical Task
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+This project is a performance-focused Search & Filter Engine built with React and TypeScript.
+The main goal is to efficiently handle large datasets while keeping the UI smooth and responsive.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## How to Run
 
-## React Compiler
+```bash
+npm install
+npm run dev
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+📌 مصاحبه‌گر اول اینو می‌خونه
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 4️⃣ دیتاست (Dataset)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+```md
+## Dataset
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- A mock dataset of 5,000 items is generated on the client.
+- Data is generated only once using useMemo.
+- Each item includes id, name, category, price, and status.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Search
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Text search is applied on the item name.
+- Search input is debounced to avoid filtering on every keystroke.
+- Implemented without external libraries.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Filters
+
+Implemented filters:
+- Category
+- Price range
+- Status
+
+All filters work together and run fully on the client.
+Filtering logic is implemented using pure functions with O(n) complexity.
+
+## Architecture
+
+Search and filter logic is separated from UI components:
+
+SearchInput / Filters
+        ↓
+useItemsController
+        ↓
+useFilteredItems
+        ↓
+applyFilters
+
+## Virtualized List
+
+The result list is virtualized using react-window.
+Only visible items are rendered in the DOM to ensure smooth scrolling.
+
+## Performance Optimizations
+
+- useMemo for expensive computations
+- useCallback for stable references
+- Debounced search input
+- Virtualized list rendering
+- Minimal and predictable re-renders
+
+## Performance Testing
+
+- React DevTools Profiler was used to measure render times.
+- Chrome DevTools was used to verify DOM virtualization.
+- No input lag or frame drops were observed.
+
+## Limitations
+
+- Filtering is client-side only.
+- For very large datasets, server-side filtering or Web Workers would be preferred.
+
+## Conclusion
+
+This project focuses on performance engineering rather than UI complexity.
+All optimization decisions were validated using profiling tools.
