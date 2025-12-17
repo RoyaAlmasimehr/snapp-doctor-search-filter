@@ -17,7 +17,7 @@ function App() {
   
       <div className="search-bar">
         <SearchInput value={rawQuery} onChange={setRawQuery} />
-        <button className="search-button">Search</button>
+        <button className="search-button" disabled>Search</button>
       </div>
 
       <div className="content">
